@@ -245,7 +245,8 @@ impl EditorView {
         surface: &mut Surface,
         theme: &Theme,
     ) {
-        let editor_rulers = &editor.config().rulers;
+        let config = editor.config();
+        let editor_rulers = &config.rulers;
         let ruler_theme = theme
             .try_get("ui.virtual.ruler")
             .unwrap_or_else(|| Style::default().fg(Color::Red));
@@ -267,7 +268,7 @@ impl EditorView {
 
         for col in ruler_cols {
             for y in viewport.y..viewport.height {
-                surface.set_string(col, y, "¦", ruler_theme);
+                surface.set_string(col, y, &config.ruler_char, ruler_theme);
             }
         }
     }
